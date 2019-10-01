@@ -1,0 +1,35 @@
+{
+  "name": "@canalapp/shared",
+  "version": "1.0.0",
+  "description": "Shared code for Canal",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/canalapp/canal-shared.git"
+  },
+  "author": "Asher Foster <me@asherfoster.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/canalapp/canal-shared/issues"
+  },
+  "homepage": "https://github.com/canalapp/canal-shared#readme",
+  "devDependencies": {
+    "@types/flake-idgen": "^0.1.30",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.8",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "biguint-format": "^1.0.1",
+    "flake-idgen": "^1.1.2",
+    "typeorm": "^0.2.19"
+  },
+  "typings": "./dist/index.d.ts"
+}

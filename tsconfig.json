@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "declaration": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
+  ]
+}
