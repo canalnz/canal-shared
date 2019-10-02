@@ -1,8 +1,7 @@
 import * as crypto from 'crypto';
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {Bot, Platform} from '../entities/Bot';
-import {User} from '../entities/User';
-import {getBotSelf} from '../../discord';
+import {Bot, Platform, User} from '../entities';
+import {getBotSelf} from '../../util/discord';
 import {nextSnowflake} from '../../util/snowflake';
 
 export interface CreateBotData {

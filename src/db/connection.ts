@@ -24,7 +24,7 @@ export async function createDbConnection({
     username,
     password,
     entities: [
-      path.resolve(__dirname, '../entities/**/*.js')
+      path.resolve(__dirname, './entities/**/*.js')
     ],
     synchronize: false, // Be careful with this. It drops stuff
     logging: ['error']

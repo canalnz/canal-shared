@@ -36,10 +36,10 @@ export interface DiscordUser {
   discriminator: string;
   email?: string | null;
 }
-export async function getBotSelf(token: string): Promise<DiscordUser> {
+export async function getSelf(token: string, bot: boolean = false): Promise<DiscordUser> {
   return discordRestRequest<DiscordUser>({
     endpoint: '/users/@me',
-    auth: 'Bot ' + token
+    auth: (bot ? 'Bot ' : 'Bearer ') + token
   });
 }
 
