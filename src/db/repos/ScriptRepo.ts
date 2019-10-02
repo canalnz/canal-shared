@@ -1,8 +1,6 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {Script} from '../entities/Script';
-import Bot, {Platform} from '../entities/Bot';
-import User from '../entities/User';
-import {nextSnowflake} from '../../snowflake';
+import {Script, Bot, Platform, User} from '../entities';
+import {nextSnowflake} from '../../util/snowflake';
 
 interface ScriptCreateData {
   name: string;
@@ -30,5 +28,4 @@ export class ScriptRepository extends Repository<Script> {
   }
 }
 
-const getScriptRepo = () => getCustomRepository(ScriptRepository);
-export default getScriptRepo;
+export const getScriptRepo = () => getCustomRepository(ScriptRepository);

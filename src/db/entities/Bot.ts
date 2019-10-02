@@ -8,14 +8,14 @@ import {
   PrimaryColumn,
   UpdateDateColumn
 } from 'typeorm';
-import User from './User';
+import {User} from './User';
 import {ScriptLink} from './ScriptLink';
 
 export type Platform = 'NODEJS';
 export const platforms = ['NODEJS'];
 
 @Entity('bots')
-export default class Bot {
+export class Bot {
   @PrimaryColumn('bigint')
   public id!: string;
 

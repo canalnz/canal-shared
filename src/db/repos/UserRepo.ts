@@ -1,7 +1,7 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import User from '../entities/User';
-import {nextSnowflake} from '../../snowflake';
-import getSessRepo from './UserSessionRepo';
+import {User} from '../entities';
+import {nextSnowflake} from '../../util/snowflake';
+import {getSessRepo} from './UserSessionRepo';
 
 export interface NewUserData {
   name: string;
@@ -29,5 +29,4 @@ export class UserRepository extends Repository<User> {
   }
 }
 
-const getUserRepo = () => getCustomRepository(UserRepository);
-export default getUserRepo;
+export const getUserRepo = () => getCustomRepository(UserRepository);

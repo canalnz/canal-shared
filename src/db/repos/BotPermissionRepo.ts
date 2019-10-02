@@ -1,7 +1,6 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {BotPermission} from '../entities/BotPermission';
-import Bot from '../entities/Bot';
-import {nextSnowflake} from '../../snowflake';
+import {Bot, BotPermission} from '../entities';
+import {nextSnowflake} from '../../util/snowflake';
 
 export interface BotPermissionCreateData {
   bot: Bot;
@@ -19,5 +18,4 @@ export class BotPermissionRepo extends Repository<BotPermission> {
   }
 }
 
-const getBotPermRepo = () => getCustomRepository(BotPermissionRepo);
-export default getBotPermRepo;
+export const getBotPermRepo = () => getCustomRepository(BotPermissionRepo);

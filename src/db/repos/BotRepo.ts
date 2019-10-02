@@ -1,9 +1,9 @@
 import * as crypto from 'crypto';
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import Bot, {Platform} from '../entities/Bot';
-import User from '../entities/User';
+import {Bot, Platform} from '../entities/Bot';
+import {User} from '../entities/User';
 import {getBotSelf} from '../../discord';
-import {nextSnowflake} from '../../snowflake';
+import {nextSnowflake} from '../../util/snowflake';
 
 export interface CreateBotData {
   token: string;
@@ -40,5 +40,4 @@ export class BotRepository extends Repository<Bot> {
   }
 }
 
-const getBotRepo = () => getCustomRepository(BotRepository);
-export default getBotRepo;
+export const getBotRepo = () => getCustomRepository(BotRepository);

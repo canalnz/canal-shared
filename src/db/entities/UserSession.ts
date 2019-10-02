@@ -5,10 +5,10 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import {AuthProvider, authProviders} from './UserAuthMethod';
-import User from './User';
+import {User} from './User';
 
 @Entity('user_sessions')
-export default class UserSession {
+export class UserSession {
   @ManyToOne((type) => User, (user) => user.sessions, {lazy: true})
   @JoinColumn({name: 'user_id'})
   public user!: Promise<User>;

@@ -1,7 +1,7 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn} from 'typeorm';
-import Bot from './Bot';
+import {Bot} from './Bot';
 import {Script} from './Script';
-import User from './User';
+import {User} from './User';
 
 @Entity('script_links')
 export class ScriptLink {

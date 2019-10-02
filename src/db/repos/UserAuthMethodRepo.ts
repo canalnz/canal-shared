@@ -1,6 +1,5 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import UserAuthMethod, {AuthProvider} from '../entities/UserAuthMethod';
-import User from '../entities/User';
+import {UserAuthMethod, AuthProvider, User} from '../entities';
 
 export interface NewAuthMethodData {
   user: User;
@@ -26,5 +25,4 @@ export class UserAuthMethodRepository extends Repository<UserAuthMethod> {
   }
 }
 
-const getAuthMethodRepo = () => getCustomRepository(UserAuthMethodRepository);
-export default getAuthMethodRepo;
+export const getAuthMethodRepo = () => getCustomRepository(UserAuthMethodRepository);

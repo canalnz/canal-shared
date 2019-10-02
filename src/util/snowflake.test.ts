@@ -1,4 +1,4 @@
-import {nextSnowflake, nextSnowflakeSync} from './index';
+import {nextSnowflake, nextSnowflakeSync} from './snowflake';
 
 const SNOWFLAKE_REGEX = /^[0-9]{16,19}$/;
 

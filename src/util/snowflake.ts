@@ -18,3 +18,8 @@ export async function nextSnowflake(): Promise<string> {
 export function nextSnowflakeSync(): string {
   return intFormat(generator.next(), 'dec');
 }
+
+export const snowflake = {
+  nextSnowflake,
+  nextSnowflakeSync
+};

@@ -1,7 +1,7 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {ScriptLink} from '../entities/ScriptLink';
-import User from '../entities/User';
+import {ScriptLink, User} from '../entities';
 import {ScriptRepository} from './ScriptRepo';
+import {pubsub} from '../../pubsub';
 
 export interface CreateScriptLinkData {
   script: string;
@@ -17,39 +17,38 @@ export class ScriptLinkRepo extends Repository<ScriptLink> {
     link.botId = bot;
     link.createdById = user.id;
     const entity = await this.save(link);
-    this.propagateCreate(entity);
+    await pubsub.topic('script-update').publishJSON({
+      updateType: pubsub.scriptUpdateType.Create
+    }, {
+      bot: link.botId,
+      script: link.scriptId
+    });
     return entity;
   }
-  public restart(link: ScriptLink) {
-    // Send a blank Update frame to restart it
-    // gateway.send(link.botId, 'SCRIPT_UPDATE', {id: link.scriptId});
+
+  public async restart(link: ScriptLink) {
+    await pubsub.topic('script-update').publishJSON({
+      updateType: pubsub.scriptUpdateType.Restart
+    }, {
+      bot: link.botId,
+      script: link.scriptId
+    });
   }
+
   public remove(entities: ScriptLink[]): Promise<ScriptLink[]>;
   public remove(entity: ScriptLink): Promise<ScriptLink>;
   public async remove(entities: ScriptLink | ScriptLink[]): Promise<ScriptLink | ScriptLink[]> {
     entities = Array.isArray(entities) ? entities : [entities]; // Coerce into array
     await Promise.all(entities.map(async (link) => {
-      await this.propagateRemove(link);
+      await pubsub.topic('script-update').publishJSON({
+        updateType: pubsub.scriptUpdateType.Remove
+      }, {
+        bot: link.botId,
+        script: link.scriptId
+      });
     }));
     return super.remove(entities);
   }
-
-  private async propagateCreate(link: ScriptLink) {
-    const script = await getCustomRepository(ScriptRepository).findOneOrFail({
-      id: link.scriptId
-    });
-    // gateway.send(link.botId, 'SCRIPT_CREATE', {
-    //   id: link.scriptId,
-    //   name: script.name,
-    //   body: script.body,
-    //   platform: script.platform
-    // });
-  }
-  private async propagateRemove(link: ScriptLink) {
-    // Send a blank Update frame to restart it
-    // gateway.send(link.botId, 'SCRIPT_REMOVE', {id: link.scriptId});
-  }
 }
 
-const getScriptLinkRepo = () => getCustomRepository(ScriptLinkRepo);
-export default getScriptLinkRepo;
+export const getScriptLinkRepo = () => getCustomRepository(ScriptLinkRepo);

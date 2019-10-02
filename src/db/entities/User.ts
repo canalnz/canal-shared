@@ -1,11 +1,11 @@
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn} from 'typeorm';
-import Bot from './Bot';
+import {Bot} from './Bot';
 import {Script} from './Script';
-import UserAuthMethod from './UserAuthMethod';
-import UserSession from './UserSession';
+import {UserAuthMethod} from './UserAuthMethod';
+import {UserSession} from './UserSession';
 
 @Entity('users')
-export default class User {
+export class User {
   @PrimaryColumn('bigint')
   public id!: string;
 

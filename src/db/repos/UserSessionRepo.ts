@@ -1,7 +1,5 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import UserSession from '../entities/UserSession';
-import User from '../entities/User';
-import {AuthProvider} from '../entities/UserAuthMethod';
+import {UserSession, User, AuthProvider} from '../entities';
 import * as crypto from 'crypto';
 
 export interface NewSessionData {
@@ -27,5 +25,4 @@ export class UserSessionRepository extends Repository<UserSession> {
   }
 }
 
-const getSessRepo = () => getCustomRepository(UserSessionRepository);
-export default getSessRepo;
+export const getSessRepo = () => getCustomRepository(UserSessionRepository);

@@ -1,11 +1,11 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn} from 'typeorm';
-import User from './User';
+import {User} from './User';
 
 export type AuthProvider = 'PASSWORD' | 'DISCORD' | 'GITHUB' | 'GOOGLE';
 export const authProviders: AuthProvider[] = ['PASSWORD', 'DISCORD', 'GITHUB', 'GOOGLE'];
 
 @Entity('user_auth_methods')
-export default class UserAuthMethod {
+export class UserAuthMethod {
   @ManyToOne((type) => User, (user) => user.authMethods, {lazy: true})
   @JoinColumn({name: 'user_id'})
   public user!: Promise<User>;

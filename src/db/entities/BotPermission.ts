@@ -1,5 +1,5 @@
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn} from 'typeorm';
-import Bot from './Bot';
+import {Bot} from './Bot';
 
 export type BotPermissionQualifierType = 'USER' | 'ROLE' | 'CHANNEL' | 'GUILD';
 export const botPermissionQualifierTypes = ['USER', 'ROLE', 'CHANNEL', 'GUILD'];

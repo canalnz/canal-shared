@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Shared code for Canal",
   "main": "dist/index.js",
-  "private": true,
   "scripts": {
     "test": "jest"
   },
@@ -27,8 +26,10 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "@google-cloud/pubsub": "^1.1.0",
     "biguint-format": "^1.0.1",
     "flake-idgen": "^1.1.2",
+    "node-fetch": "^2.6.0",
     "typeorm": "^0.2.19"
   },
   "typings": "./dist/index.d.ts"
