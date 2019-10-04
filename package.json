@@ -1,6 +1,6 @@
 {
   "name": "@asherfoster/canal-shared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared code for Canal",
   "main": "dist/index.js",
   "scripts": {
@@ -10,8 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/asherfoster/canal-shared.git"
   },
-
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "author": "Asher Foster <me@asherfoster.com>",
   "license": "UNLICENSED",
   "bugs": {
