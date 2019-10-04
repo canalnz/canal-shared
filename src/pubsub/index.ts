@@ -14,7 +14,7 @@ export function topic(name: string): Topic {
   }
   if (topicCache.has(name)) topicCache.get(name);
   else {
-    const t = pubsub.topic(name);
+    const t = _pubsub.topic(name);
     topicCache.set(name, t);
     return t;
   }

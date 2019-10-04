@@ -1,5 +1,5 @@
 {
-  "name": "@canalapp/shared",
+  "name": "@asherfoster/canal-shared",
   "version": "1.0.0",
   "description": "Shared code for Canal",
   "main": "dist/index.js",
@@ -8,14 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/canalapp/canal-shared.git"
+    "url": "git+https://github.com/asherfoster/canal-shared.git"
   },
+
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "author": "Asher Foster <me@asherfoster.com>",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/canalapp/canal-shared/issues"
+    "url": "https://github.com/asherfoster/canal-shared/issues"
   },
-  "homepage": "https://github.com/canalapp/canal-shared#readme",
+  "homepage": "https://github.com/asherfoster/canal-shared#readme",
   "devDependencies": {
     "@types/flake-idgen": "^0.1.30",
     "@types/jest": "^24.0.18",

@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
 import {Bot, Platform, User} from '../entities';
-import {getBotSelf} from '../../util/discord';
+import {getSelf} from '../../util/discord';
 import {nextSnowflake} from '../../util/snowflake';
 
 export interface CreateBotData {
@@ -18,7 +18,7 @@ export class BotRepository extends Repository<Bot> {
     return await this.findOne({id, resourceOwnerId: user.id}) || null;
   }
   public async createAndSave({platform, token, owner}: CreateBotData): Promise<Bot> {
-    const botData = await getBotSelf(token);
+    const botData = await getSelf(token, true);
     if (!botData || !botData.id) throw new Error('That token doesn\'t appear to be valid');
     if (!botData.bot) throw new Error('Automating user accounts is against Discord ToS, and is prohibited');
 
