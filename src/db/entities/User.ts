@@ -3,6 +3,7 @@ import {Bot} from './Bot';
 import {Script} from './Script';
 import {UserAuthMethod} from './UserAuthMethod';
 import {UserSession} from './UserSession';
+import {UserFlag} from './UserFlag';
 
 @Entity('users')
 export class User {
@@ -46,4 +47,7 @@ export class User {
 
   @OneToMany((type) => UserSession, (sess) => sess.user, {lazy: true})
   public sessions!: Promise<UserSession[]>;
+
+  @OneToMany((type) => UserFlag, (flag) => flag.user, {lazy: true})
+  public flags!: Promise<UserFlag[]>;
 }

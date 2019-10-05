@@ -5,3 +5,4 @@ export * from './ScriptRepo';
 export * from './UserAuthMethodRepo';
 export * from './UserRepo';
 export * from './UserSessionRepo';
+export * from './UserFlagRepo';
