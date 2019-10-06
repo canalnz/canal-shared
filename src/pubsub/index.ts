@@ -20,9 +20,8 @@ export function topic(name: string): Topic {
   }
 }
 
-export function setup(projectOrOpts: string | any) {
-  if (typeof projectOrOpts === 'string') projectOrOpts = {projectId: projectOrOpts};
-  _pubsub = new PubSub(projectOrOpts);
+export function setup(opts?: any) {
+  _pubsub = new PubSub(opts);
 }
 export const scriptUpdateType = {
   Create: 'CREATE',
