@@ -54,7 +54,7 @@ export class Bot {
   })
   public apiKey!: string;
 
-  @ManyToOne((type) => User, (user) => user.bots, {lazy: true})
+  @ManyToOne((type) => User, (user) => user.bots, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'resource_owner'})
   public resourceOwner!: Promise<User>;
 
@@ -64,7 +64,7 @@ export class Bot {
   @CreateDateColumn()
   public created!: string;
 
-  @ManyToOne(type => User, {lazy: true, nullable: true})
+  @ManyToOne((type) => User, {lazy: true, nullable: true})
   @JoinColumn({name: 'created_by'})
   public createdBy!: Promise<string | null>;
 
@@ -76,7 +76,7 @@ export class Bot {
   })
   public updated!: Date | null;
 
-  @ManyToOne(type => User, {lazy: true, nullable: true})
+  @ManyToOne((type) => User, {lazy: true, nullable: true})
   @JoinColumn({name: 'updated_by'})
   public updatedBy!: Promise<string | null>;
 

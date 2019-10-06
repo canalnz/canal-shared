@@ -9,7 +9,7 @@ import {User} from './User';
 
 @Entity('user_sessions')
 export class UserSession {
-  @ManyToOne((type) => User, (user) => user.sessions, {lazy: true})
+  @ManyToOne((type) => User, (user) => user.sessions, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'user_id'})
   public user!: Promise<User>;
 

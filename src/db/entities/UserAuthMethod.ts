@@ -6,7 +6,7 @@ export const authProviders: AuthProvider[] = ['PASSWORD', 'DISCORD', 'GITHUB', '
 
 @Entity('user_auth_methods')
 export class UserAuthMethod {
-  @ManyToOne((type) => User, (user) => user.authMethods, {lazy: true})
+  @ManyToOne((type) => User, (user) => user.authMethods, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'user_id'})
   public user!: Promise<User>;
 

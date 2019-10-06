@@ -3,7 +3,7 @@ import {User} from './User';
 
 @Entity('user_flags')
 export class UserFlag {
-    @ManyToOne((type) => User, (user) => user.flags, {lazy: true, primary: true})
+    @ManyToOne((type) => User, (user) => user.flags, {lazy: true, primary: true, onDelete: 'CASCADE'})
     @JoinColumn({name: 'user_id'})
     public user!: Promise<User>;
 

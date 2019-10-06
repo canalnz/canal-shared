@@ -21,7 +21,7 @@ export class Script {
   })
   public platform!: Platform;
 
-  @ManyToOne((type) => User, (user) => user.scripts, {lazy: true})
+  @ManyToOne((type) => User, (user) => user.scripts, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'resource_owner'})
   public resourceOwner!: Promise<User>;
 

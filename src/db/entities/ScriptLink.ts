@@ -5,14 +5,14 @@ import {User} from './User';
 
 @Entity('script_links')
 export class ScriptLink {
-  @ManyToOne((type) => Bot, bot => bot.scripts, {lazy: true, primary: true})
+  @ManyToOne((type) => Bot, (bot) => bot.scripts, {lazy: true, primary: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'bot_id'})
   public bot!: Promise<Bot>;
 
   @PrimaryColumn({name: 'bot_id', type: 'bigint'})
   public botId!: string;
 
-  @ManyToOne((type) => Script, {lazy: true, primary: true})
+  @ManyToOne((type) => Script, {lazy: true, primary: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'script_id'})
   public script!: Promise<Script>;
 

@@ -9,7 +9,7 @@ export class BotPermission {
   @PrimaryColumn('bigint')
   public id!: string;
 
-  @ManyToOne((type) => Bot, {lazy: true})
+  @ManyToOne((type) => Bot, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'bot_id'})
   public bot!: Promise<Bot>;
 
@@ -30,7 +30,7 @@ export class BotPermissionQualifier {
   @PrimaryColumn('bigint')
   public id!: string;
 
-  @ManyToOne((type) => BotPermission, {lazy: true})
+  @ManyToOne((type) => BotPermission, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'perm_id'})
   public perm!: Promise<BotPermission>;
 

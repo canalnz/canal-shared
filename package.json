@@ -34,6 +34,8 @@
     "biguint-format": "^1.0.1",
     "flake-idgen": "^1.1.2",
     "node-fetch": "^2.6.0",
+    "pg": "^7.12.1",
+    "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.19"
   },
   "typings": "./dist/index.d.ts"
