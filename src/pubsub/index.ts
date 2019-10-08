@@ -12,7 +12,7 @@ export function topic(name: string): Topic {
   if (!_pubsub) {
     throw new Error('Trying to get a topic before initialisation!');
   }
-  if (topicCache.has(name)) topicCache.get(name);
+  if (topicCache.has(name)) return topicCache.get(name);
   else {
     const t = _pubsub.topic(name);
     topicCache.set(name, t);

@@ -17,20 +17,20 @@ export class ScriptLinkRepo extends Repository<ScriptLink> {
     link.createdById = user.id;
     const entity = await this.save(link);
     await pubsub.topic('script-updates').publishJSON({
-      updateType: pubsub.scriptUpdateType.Create
-    }, {
-      bot: link.botId,
+      action: pubsub.scriptUpdateType.Create,
       script: link.scriptId
+    }, {
+      client: link.botId
     });
     return entity;
   }
 
   public async restart(link: ScriptLink) {
     await pubsub.topic('script-updates').publishJSON({
-      updateType: pubsub.scriptUpdateType.Restart
-    }, {
-      bot: link.botId,
+      action: pubsub.scriptUpdateType.Restart,
       script: link.scriptId
+    }, {
+      client: link.botId
     });
   }
 
@@ -40,10 +40,10 @@ export class ScriptLinkRepo extends Repository<ScriptLink> {
     entities = Array.isArray(entities) ? entities : [entities]; // Coerce into array
     await Promise.all(entities.map(async (link) => {
       await pubsub.topic('script-updates').publishJSON({
-        updateType: pubsub.scriptUpdateType.Remove
-      }, {
-        bot: link.botId,
+        action: pubsub.scriptUpdateType.Remove,
         script: link.scriptId
+      }, {
+        client: link.botId
       });
     }));
     return super.remove(entities);
