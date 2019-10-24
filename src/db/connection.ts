@@ -19,7 +19,8 @@ export async function createDbConnection({
 }: DatabaseConnectionOptions): Promise<Connection> {
   // Fix timezone parser to always parse dates as UTC. All dates in DB should be stored as utc
   // See https://github.com/typeorm/typeorm/issues/2622#issuecomment-476416712
-  pg.types.setTypeParser(pg.types.TypeId.TIMESTAMP, (str: string) => new Date(`${str}+0000`));
+  // See https://github.com/brianc/node-postgres/issues/429#issuecomment-24870258
+  pg.types.setTypeParser(pg.types.builtins.TIMESTAMP, (str: string) => new Date(`${str}+0000`));
   return await createConnection({
     type: 'postgres',
     database,
