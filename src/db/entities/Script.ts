@@ -2,8 +2,6 @@ import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, 
 import {Platform, platforms} from './Bot';
 import {User} from './User';
 
-export type ScriptState = 'RUNNING' | 'PASSIVE' | 'ERRORED' | 'STOPPED';
-
 @Entity('scripts')
 export class Script {
   @PrimaryColumn('bigint')

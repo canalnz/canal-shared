@@ -4,12 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToMany, OneToOne,
   PrimaryColumn,
   UpdateDateColumn
 } from 'typeorm';
 import {User} from './User';
 import {ScriptLink} from './ScriptLink';
+import {BotState} from './BotState';
 
 export type Platform = 'NODEJS';
 export const platforms = ['NODEJS'];
@@ -85,4 +86,7 @@ export class Bot {
 
   @OneToMany((type) => ScriptLink, (link) => link.bot, {lazy: true})
   public scripts!: Promise<ScriptLink[]>;
+
+  @OneToOne((type) => BotState, (state) => state.bot, {lazy: true, nullable: true})
+  public state!: Promise<BotState | null>;
 }

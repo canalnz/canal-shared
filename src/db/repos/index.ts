@@ -6,3 +6,5 @@ export * from './UserAuthMethodRepo';
 export * from './UserRepo';
 export * from './UserSessionRepo';
 export * from './UserFlagRepo';
+export * from './BotStateRepo';
+export * from './ScriptStateRepo';

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import * as entities from './entities';
 import * as repos from './repos';
+import * as entities from './entities';
 import * as connection from './connection';
 
 export * from './entities';
