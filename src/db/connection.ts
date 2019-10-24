@@ -23,6 +23,11 @@ export async function createDbConnection({
   pg.types.setTypeParser(pg.types.builtins.TIMESTAMP, (str: string) => new Date(`${str}+0000`));
   return await createConnection({
     type: 'postgres',
+    extra: {
+      // Production DB is pretty anemic so we don't want too many connections.
+      // We have multiple replicas, so we don't need a ton
+      max: 3
+    },
     database,
     host,
     port,
