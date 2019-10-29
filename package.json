@@ -1,6 +1,6 @@
 {
   "name": "@asherfoster/canal-shared",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Shared code for Canal",
   "main": "dist/index.js",
   "scripts": {
