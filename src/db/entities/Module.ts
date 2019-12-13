@@ -1,9 +1,10 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn} from 'typeorm';
-import {Platform, platforms} from './Bot';
 import {User} from './User';
+import {Platform, platforms, Runtime, runtimes} from '../../constants';
+import {Workspace} from './Workspace';
 
-@Entity('scripts')
-export class Script {
+@Entity('modules')
+export class Module {
   @PrimaryColumn('bigint')
   public id!: string;
 
@@ -13,21 +14,30 @@ export class Script {
   @Column()
   public body!: string;
 
+  @Column({name: 'deployed_body', nullable: true})
+  public deployedBody: string | null;
+
   @Column({
     type: 'enum',
     enum: platforms
   })
   public platform!: Platform;
 
-  @ManyToOne((type) => User, (user) => user.scripts, {lazy: true, onDelete: 'CASCADE'})
-  @JoinColumn({name: 'resource_owner'})
-  public resourceOwner!: Promise<User>;
+  @Column({
+    type: 'enum',
+    enum: runtimes
+  })
+  public runtime!: Runtime;
+
+  @ManyToOne((type) => User, (user) => user.workspaces, {lazy: true, onDelete: 'CASCADE'})
+  @JoinColumn({name: 'workspace_id'})
+  public workspace!: Promise<Workspace>;
 
   @Column({
-    name: 'resource_owner',
+    name: 'workspace_id',
     type: 'bigint'
   })
-  public resourceOwnerId!: string;
+  public workspaceId!: string;
 
   @CreateDateColumn()
   public created!: string;

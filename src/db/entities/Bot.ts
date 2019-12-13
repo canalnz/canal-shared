@@ -9,11 +9,9 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import {User} from './User';
-import {ScriptLink} from './ScriptLink';
-import {BotState} from './BotState';
-
-export type Platform = 'NODEJS';
-export const platforms = ['NODEJS'];
+import {ModuleLink} from './ModuleLink';
+import {Platform, platforms} from '../../constants';
+import {DiscordBotDetails} from './DiscordBotDetails';
 
 @Entity('bots')
 export class Bot {
@@ -22,18 +20,6 @@ export class Bot {
 
   @Column({length : 128})
   public name!: string;
-
-  @Column({length: 4})
-  public discriminator!: string;
-
-  @Column({
-    name: 'discord_id',
-    type: 'bigint'
-  })
-  public discordId!: string;
-
-  @Column({length: 64})
-  public token!: string;
 
   @Column({
     name: 'avatar_hash',
@@ -48,12 +34,6 @@ export class Bot {
     enum: platforms
   })
   public platform!: Platform;
-
-  @Column({
-    name: 'api_key',
-    length: 64
-  })
-  public apiKey!: string;
 
   @ManyToOne((type) => User, (user) => user.bots, {lazy: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'resource_owner'})
@@ -84,9 +64,14 @@ export class Bot {
   @Column({name: 'updated_by', type: 'bigint', nullable: true})
   public updatedById!: string | null;
 
-  @OneToMany((type) => ScriptLink, (link) => link.bot, {lazy: true})
-  public scripts!: Promise<ScriptLink[]>;
+  @OneToMany((type) => ModuleLink, (link) => link.bot, {lazy: true})
+  public modules!: Promise<ModuleLink[]>;
 
-  @OneToOne((type) => BotState, (state) => state.bot, {lazy: true, nullable: true})
-  public state!: Promise<BotState | null>;
+  @OneToOne((type) => DiscordBotDetails, (details) => details.bot, {lazy: true, onDelete: 'SET NULL'})
+  public discordDetails!: Promise<DiscordBotDetails>;
+
+  public async getAvatarUrl(): Promise<string> {
+    // TODO REQUIRED fix avatar urls
+    return '';
+  }
 }

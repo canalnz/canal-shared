@@ -1,8 +1,8 @@
-import * as crypto from 'crypto';
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {Bot, Platform, User} from '../entities';
+import {Bot, User} from '../entities';
 import {getSelf} from '../../util/discord';
 import {nextSnowflake} from '../../util/snowflake';
+import {Platform} from '../../constants';
 
 export interface CreateBotData {
   token: string;
@@ -24,15 +24,11 @@ export class BotRepository extends Repository<Bot> {
 
     const bot = new Bot();
     bot.id = await nextSnowflake();
-    bot.apiKey = crypto.randomBytes(32).toString('hex');
-    bot.token = token;
     bot.platform = platform;
     bot.resourceOwnerId = owner.id;
     bot.createdById = owner.id;
 
     bot.name = botData.username;
-    bot.discriminator = botData.discriminator;
-    bot.discordId = botData.id;
     bot.avatarHash = botData.avatar;
 
     return this.save(bot);

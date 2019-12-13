@@ -1,25 +1,25 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn} from 'typeorm';
 import {Bot} from './Bot';
-import {Script} from './Script';
+import {Module} from './Module';
 import {User} from './User';
-import {ScriptState} from './ScriptState';
-import {getScriptStateRepo} from '../repos';
+import {ModuleState} from './ModuleState';
+import {getModuleStateRepo} from '../repos';
 
-@Entity('script_links')
-export class ScriptLink {
-  @ManyToOne((type) => Bot, (bot) => bot.scripts, {lazy: true, primary: true, onDelete: 'CASCADE'})
+@Entity('module_links')
+export class ModuleLink {
+  @ManyToOne((type) => Bot, (bot) => bot.modules, {lazy: true, primary: true, onDelete: 'CASCADE'})
   @JoinColumn({name: 'bot_id'})
   public bot!: Promise<Bot>;
 
   @PrimaryColumn({name: 'bot_id', type: 'bigint'})
   public botId!: string;
 
-  @ManyToOne((type) => Script, {lazy: true, primary: true, onDelete: 'CASCADE'})
-  @JoinColumn({name: 'script_id'})
-  public script!: Promise<Script>;
+  @ManyToOne((type) => Module, {lazy: true, primary: true, onDelete: 'CASCADE'})
+  @JoinColumn({name: 'module_id'})
+  public module!: Promise<Module>;
 
-  @PrimaryColumn({name: 'script_id', type: 'bigint'})
-  public scriptId!: string;
+  @PrimaryColumn({name: 'module_id', type: 'bigint'})
+  public moduleId!: string;
 
   @Column({name: 'last_started', type: 'timestamp', nullable: true})
   public lastStarted!: Date | null;
@@ -34,10 +34,10 @@ export class ScriptLink {
   @Column({name: 'created_by', nullable: true, type: 'bigint'})
   public createdById!: string | null;
 
-  private _state: ScriptState | null = null;
-  public async state(): Promise<ScriptState> {
+  private _state: ModuleState | null = null;
+  public async state(): Promise<ModuleState> {
     if (!this._state) {
-      this._state = await getScriptStateRepo().findOneOrFail({scriptId: this.scriptId, botId: this.botId});
+      this._state = await getModuleStateRepo().findOneOrFail({moduleId: this.moduleId, botId: this.botId});
     }
     return this._state;
   }

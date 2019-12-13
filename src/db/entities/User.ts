@@ -1,9 +1,9 @@
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryColumn} from 'typeorm';
 import {Bot} from './Bot';
-import {Script} from './Script';
 import {UserAuthMethod} from './UserAuthMethod';
 import {UserSession} from './UserSession';
 import {UserFlag} from './UserFlag';
+import {Workspace} from './Workspace';
 
 @Entity('users')
 export class User {
@@ -39,8 +39,8 @@ export class User {
   @OneToMany((type) => Bot, (bot) => bot.resourceOwner, {lazy: true})
   public bots!: Promise<Bot[]>;
 
-  @OneToMany((type) => Script, (script) => script.resourceOwner, {lazy: true})
-  public scripts!: Promise<Script[]>;
+  @ManyToMany((type) => Workspace, {lazy: true})
+  public workspaces!: Promise<Workspace[]>;
 
   @OneToMany((type) => UserAuthMethod, (method) => method.user, {lazy: true})
   public authMethods!: Promise<UserAuthMethod[]>;
@@ -50,4 +50,11 @@ export class User {
 
   @OneToMany((type) => UserFlag, (flag) => flag.user, {lazy: true})
   public flags!: Promise<UserFlag[]>;
+
+  public async getAvatarUrl(): Promise<string> {
+    // TODO REQUIRED fix avatar urls
+    // const discordAuth = await getAuthMethodRepo().findOneOrFail({userId: parent.id, provider: 'DISCORD'});
+    // return buildAvatarUrl(discordAuth.providerId, parent.avatarHash);
+    return '';
+  }
 }

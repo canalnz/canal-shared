@@ -48,7 +48,7 @@ export async function getSubscription(topicName: string, subName?: string): Prom
 export function setup(opts?: any) {
   _pubsub = new PubSub(opts);
 }
-export const scriptUpdateType = {
+export const moduleUpdateType = {
   Create: 'CREATE',
   Restart: 'RESTART',
   Remove: 'REMOVE',
@@ -58,5 +58,5 @@ export const pubsub = {
   setup,
   getSubscription,
   topic: getTopic,
-  scriptUpdateType
+  moduleUpdateType
 };
