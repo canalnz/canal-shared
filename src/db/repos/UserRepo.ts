@@ -27,9 +27,10 @@ export class UserRepository extends Repository<User> {
     if (!sess) return null;
     return await this.findOne({id: sess.userId}) || null;
   }
-  public delete(...args: any[]): never {
-    throw new Error('User delete is not implemented yet!');
-  }
+  // Let's just hope this works
+  // public delete(...args: any[]): never {
+  //   throw new Error('User delete is not implemented yet!');
+  // }
 }
 
 export const getUserRepo = () => getCustomRepository(UserRepository);

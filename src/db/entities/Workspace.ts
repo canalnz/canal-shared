@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn} from 'typeorm';
 import {User} from './User';
 
-@Entity('Workspace')
+@Entity('workspaces')
 export class Workspace {
   @PrimaryColumn('bigint')
   public id!: string;

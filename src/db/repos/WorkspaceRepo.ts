@@ -1,11 +1,11 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {Bot, User, Workspace} from '../entities';
+import {User, Workspace} from '../entities';
 import {nextSnowflake} from '../../util/snowflake';
 
-interface FlagCreateData {
+interface WorkspaceCreateData {
   user: User | string;
   name: string;
-  value?: string;
+  personal?: boolean;
 }
 
 function id(user: User | string): string {
@@ -20,13 +20,14 @@ export class WorkspaceRepo extends Repository<Workspace> {
     return await this.findOne({id: workspaceId, resourceOwnerId: user.id}) || null;
   }
 
-  public async createAndSave({user, name, value = 'true'}: FlagCreateData) {
+  public async createAndSave({user, name, personal}: WorkspaceCreateData) {
     const workspace = new Workspace();
 
-    workspace.id = await nextSnowflake();
+    workspace.id = personal ? id(user) : await nextSnowflake();
     workspace.resourceOwnerId = id(user);
     workspace.name = name;
     workspace.createdById = id(user);
+    workspace.isPersonal = !!personal;
 
     return this.save(workspace);
   }
