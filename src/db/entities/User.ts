@@ -4,6 +4,8 @@ import {UserAuthMethod} from './UserAuthMethod';
 import {UserSession} from './UserSession';
 import {UserFlag} from './UserFlag';
 import {Workspace} from './Workspace';
+import {buildAvatarUrl} from '../../util/d}iscord';
+import {getAuthMethodRepo} from '../repos';
 
 @Entity('users')
 export class User {
@@ -53,8 +55,7 @@ export class User {
 
   public async getAvatarUrl(): Promise<string> {
     // TODO REQUIRED fix avatar urls
-    // const discordAuth = await getAuthMethodRepo().findOneOrFail({userId: parent.id, provider: 'DISCORD'});
-    // return buildAvatarUrl(discordAuth.providerId, parent.avatarHash);
-    return '';
+    const discordAuth = await getAuthMethodRepo().findOneOrFail({userId: this.id, provider: 'DISCORD'});
+    return buildAvatarUrl(discordAuth.providerId, this.avatarHash);
   }
 }
