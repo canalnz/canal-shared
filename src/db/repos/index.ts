@@ -1,4 +1,5 @@
 export * from './BotRepo';
+export * from './DiscordBotDetailsRepo';
 export * from './ModuleLinkRepo';
 export * from './ModuleRepo';
 export * from './ModuleStateRepo';

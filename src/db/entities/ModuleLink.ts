@@ -21,9 +21,6 @@ export class ModuleLink {
   @PrimaryColumn({name: 'module_id', type: 'bigint'})
   public moduleId!: string;
 
-  @Column({name: 'last_started', type: 'timestamp', nullable: true})
-  public lastStarted!: Date | null;
-
   @CreateDateColumn()
   public created!: Date;
 

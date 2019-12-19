@@ -4,10 +4,9 @@ import {Bot} from './Bot';
 @Entity('discord_bot_details')
 export class DiscordBotDetails {
   @OneToOne((type) => Bot, (bot) => bot.discordDetails, {
-    lazy: true, onDelete: 'CASCADE'
+    onDelete: 'CASCADE'
   })
-  @JoinColumn()
-  public bot!: Promise<Bot>;
+  public bot!: Bot;
 
   @PrimaryColumn({name: 'bot_id'})
   public botId!: string;

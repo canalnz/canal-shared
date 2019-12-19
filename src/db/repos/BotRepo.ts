@@ -1,8 +1,9 @@
 import {EntityRepository, getCustomRepository, Repository} from 'typeorm';
-import {Bot, User} from '../entities';
+import {Bot, DiscordBotDetails, User} from '../entities';
 import {getSelf} from '../../util/discord';
 import {nextSnowflake} from '../../util/snowflake';
 import {Platform} from '../../constants';
+import {getDiscordDetailsRepo} from './DiscordBotDetailsRepo';
 
 export interface CreateBotData {
   token: string;
@@ -31,7 +32,34 @@ export class BotRepository extends Repository<Bot> {
     bot.name = botData.username;
     bot.avatarHash = botData.avatar;
 
-    return this.save(bot);
+    const discordBotDetails = new DiscordBotDetails();
+    discordBotDetails.botId = bot.id;
+    discordBotDetails.discordId = botData.id;
+    discordBotDetails.username = botData.username;
+    discordBotDetails.discriminator = botData.discriminator;
+    discordBotDetails.token = token;
+
+    bot.discordDetails = discordBotDetails;
+
+    const b = await this.save(bot); // We need to do it in this order, because discord_bot_details depends upon bot
+    await getDiscordDetailsRepo().save(discordBotDetails);
+
+    return b;
+  }
+  public async updateBotToken(bot: Bot, newToken: string): Promise<Bot> {
+    const botData = await getSelf(newToken, true); // Will throw if not valid
+    const details = bot.discordDetails;
+
+    details.token = newToken;
+    details.discordId = botData.id;
+    details.username = botData.username;
+    details.discriminator = botData.discriminator;
+    await getDiscordDetailsRepo().save(details);
+
+    bot.avatarHash = botData.avatar;
+    bot.name = botData.username;
+    return await this.save(bot);
+
   }
 }
 

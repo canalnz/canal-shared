@@ -12,6 +12,7 @@ import {User} from './User';
 import {ModuleLink} from './ModuleLink';
 import {Platform, platforms} from '../../constants';
 import {DiscordBotDetails} from './DiscordBotDetails';
+import {buildAvatarUrl} from '../../util/discord';
 
 @Entity('bots')
 export class Bot {
@@ -33,6 +34,7 @@ export class Bot {
     type: 'enum',
     enum: platforms
   })
+
   public platform!: Platform;
 
   @ManyToOne((type) => User, (user) => user.bots, {lazy: true, onDelete: 'CASCADE'})
@@ -47,7 +49,7 @@ export class Bot {
 
   @ManyToOne((type) => User, {lazy: true, nullable: true})
   @JoinColumn({name: 'created_by'})
-  public createdBy!: Promise<string | null>;
+  public createdBy!: Promise<User | null>;
 
   @Column({name: 'created_by', type: 'bigint', nullable: true})
   public createdById!: string | null;
@@ -67,11 +69,13 @@ export class Bot {
   @OneToMany((type) => ModuleLink, (link) => link.bot, {lazy: true})
   public modules!: Promise<ModuleLink[]>;
 
-  @OneToOne((type) => DiscordBotDetails, (details) => details.bot, {lazy: true, onDelete: 'SET NULL'})
-  public discordDetails!: Promise<DiscordBotDetails>;
+  @OneToOne((type) => DiscordBotDetails, (details) => details.bot, {eager: true})
+  @JoinColumn({name: 'id', referencedColumnName: 'botId'})
+  public discordDetails!: DiscordBotDetails | null;
 
   public async getAvatarUrl(): Promise<string> {
-    // TODO REQUIRED fix avatar urls
-    return '';
+    if (!this.discordDetails) throw new Error(`Details missing for bot ${this.id}??`);
+
+    return buildAvatarUrl(this.discordDetails.discordId, this.avatarHash);
   }
 }

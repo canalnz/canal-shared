@@ -4,7 +4,7 @@ import {UserAuthMethod} from './UserAuthMethod';
 import {UserSession} from './UserSession';
 import {UserFlag} from './UserFlag';
 import {Workspace} from './Workspace';
-import {buildAvatarUrl} from '../../util/d}iscord';
+import {buildAvatarUrl} from '../../util/discord';
 import {getAuthMethodRepo} from '../repos';
 
 @Entity('users')
